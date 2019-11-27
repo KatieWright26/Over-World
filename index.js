@@ -4,9 +4,10 @@ const config = {
   type: Phaser.AUTO,
   width: 400,
   height: 400,
+  zoom: 1.5,
   parent: "game-container",
   pixelArt: true,
-  scene: [WorldScene, HomeScene, MarktScene, NeighbourScene],
+  scene: [],
   physics: {
     default: "arcade",
     arcade: {

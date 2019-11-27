@@ -4,7 +4,17 @@
   "description": "Second attempt at phaser animation and game play",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "budo . -d --serve bundle.js --live",
+    "build": "browserify . -o bundle.js",
+    "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist' && bash -c 'cp -r ./assets dist'",
+    "push": "gh-pages -d dist",
+    "deploy": "npm run build && npm run dist && npm run push"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   },
   "repository": {
     "type": "git",
@@ -18,5 +28,14 @@
   "homepage": "https://github.com/KatieWright26/Over-World#readme",
   "dependencies": {
     "phaser": "^3.21.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "gh-pages": "^0.11.0",
+    "tinyify": "^2.5.0",
+    "budo": "^11.6.3"
   }
 }

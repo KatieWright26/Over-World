@@ -1,3 +1,4 @@
+![Screenshot from over-world](https://github.com/KatieWright26/Over-World/blob/master/assets/preview.png)
 # Over World
 
 Second experiment with Phaser, Krita and Tiled.
@@ -15,3 +16,4 @@ npm start
 ```
 npm run deploy
 ```
+

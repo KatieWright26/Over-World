@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import WorldScene from './js/scenes/worldScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -7,7 +8,7 @@ const config = {
   zoom: 1.5,
   parent: "game-container",
   pixelArt: true,
-  scene: [],
+  scene: [WorldScene],
   physics: {
     default: "arcade",
     arcade: {

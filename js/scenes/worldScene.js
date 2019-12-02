@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
 import playerActions from '../actions/playerActions';
 import { playerControls } from "../controls/playerControls";
+import { waveAnimation } from "../actions/waveAnimation";
 
 let player;
 let cursors;
 let controls;
-
 
 export default class WorldScene extends Phaser.Scene {
   constructor() {
@@ -26,6 +26,10 @@ export default class WorldScene extends Phaser.Scene {
         frameHeight: 32
       }
     );
+    this.load.spritesheet("worm", "./assets/spritesheets/testsprite.png", {
+      frameWidth: 16,
+      frameHeight: 16
+    });
   }
 
   create() {
@@ -38,7 +42,6 @@ export default class WorldScene extends Phaser.Scene {
       "Objects",
       obj => obj.name === "Spawn Point"
     );
-
     player = this.physics.add.sprite(
       spawnPoint.x,
       spawnPoint.y,
@@ -67,6 +70,8 @@ export default class WorldScene extends Phaser.Scene {
 
     const { anims } = this;
     playerActions(anims);
+    waveAnimation(anims);
+    this.add.sprite(300, 300, "worm").play("wave");
   }
 
   update(time, delta) {

@@ -13,6 +13,11 @@ const playerControls = (cursors, player, controls, speed, delta) => {
 
   player.body.velocity.normalize().scale(speed);
 
+  // if (player.isOnGrass) {
+  // console.log('grass');
+  // player.anims.play("player-left-walk", true);
+  // } else
+
   if (cursors.right.isDown) {
     player.anims.play("player-right-walk", true);
   } else if (cursors.left.isDown) {

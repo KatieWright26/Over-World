@@ -40,11 +40,11 @@ export default class WorldScene extends Phaser.Scene {
     const tileset = map.addTilesetImage("world-tileset", "tiles");
     map.createStaticLayer("below player", tileset);
     const world = map.createStaticLayer("world", tileset);
-    const buildings = map.createStaticLayer("buildings", tileset);
-    const aboveLayer = map.createStaticLayer("above player", tileset);
+    map.createStaticLayer("buildings", tileset);
+    // const aboveLayer = map.createStaticLayer("above player", tileset);
     world.setCollisionByProperty({ collides: true });
 
-    aboveLayer.setDepth(10);
+    // aboveLayer.setDepth(10);
 
     const spawnPoint = map.findObject(
       "Objects",

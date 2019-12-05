@@ -3,11 +3,9 @@ import Phaser from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
 
-// let isOnGrass = false;
-
-// function detectGrass(_, tile) {
-//   isOnGrass = tile.properties.grass;
-// }
+function detectGrass(_, tile) {
+  this.player.isOnGrass(tile.properties.grass);
+}
 
 export default class WorldScene extends Phaser.Scene {
   constructor() {
@@ -43,10 +41,11 @@ export default class WorldScene extends Phaser.Scene {
 
     this.ground.setCollisionByProperty({ collides: true });
     this.physics.world.addCollider(this.player.sprite, this.ground);
+
     this.cameras.main.startFollow(this.player.sprite);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    // world.setTileLocationCallback(9, 14, 43, 32, detectGrass, scene);
+    this.ground.setTileLocationCallback(9, 14, 43, 32, detectGrass, scene);
 
     this.ground.setTileLocationCallback(
       27,

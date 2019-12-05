@@ -1,4 +1,4 @@
-const playerControls = (keys, player, speed) => {
+const playerControls = (keys, player, speed, onGrass) => {
   if (keys.left.isDown) {
     player.body.setVelocityX(-speed);
     player.setFlipX(false);
@@ -17,19 +17,17 @@ const playerControls = (keys, player, speed) => {
   // Prevent player speeding up when walking on diagonal.
   player.body.velocity.normalize().scale(speed);
 
-  // if (isOnGrass) {
-  if (player.body.velocity.x !== 0) {
-    //   player.anims.play('player-right-walk-grass', true);
-    // } else if (keys.left.isDown) {
-    //   player.anims.play('player-left-walk-grass', true);
-    // } else if (keys.up.isDown) {
-    //   player.anims.play('player-up-walk-grass', true);
-    // } else if (keys.down.isDown) {
-    //   player.anims.play('player-down-walk-grass', true);
-    // } else {
-    //   player.anims.stop();
-    // }
-    // } else if (cursors.right.isDown) {
+  if (onGrass) {
+    if (player.body.velocity.x !== 0) {
+      player.anims.play('player-x-walk-grass', true);
+    } else if (keys.up.isDown) {
+      player.anims.play('player-up-walk-grass', true);
+    } else if (keys.down.isDown) {
+      player.anims.play('player-down-walk-grass', true);
+    } else {
+      player.anims.stop();
+    }
+  } else if (player.body.velocity.x !== 0) {
     player.anims.play('player-x-walk', true);
   } else if (keys.up.isDown) {
     player.anims.play('player-up-walk', true);

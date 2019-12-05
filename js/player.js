@@ -20,12 +20,18 @@ export default class Player {
       up: UP,
       down: DOWN,
     });
+
+    this.grass = false;
   }
 
   update() {
-    const { keys, sprite } = this;
+    const { keys, sprite, grass } = this;
     const speed = 175;
 
-    playerControls(keys, sprite, speed);
+    playerControls(keys, sprite, speed, grass);
+  }
+
+  isOnGrass(arg) {
+    this.grass = arg;
   }
 }

@@ -10,10 +10,10 @@ function playerActions(anims) {
     repeat: -1,
   });
   anims.create({
-    key: 'player-x-walk-grass',
+    key: 'player-down-walk',
     frames: anims.generateFrameNumbers('player', {
-      start: 12,
-      end: 15,
+      start: 4,
+      end: 7,
       zeroPad: 1,
     }),
     frameRate: 10,
@@ -30,20 +30,10 @@ function playerActions(anims) {
     repeat: -1,
   });
   anims.create({
-    key: 'player-up-walk-grass',
+    key: 'player-x-walk-grass',
     frames: anims.generateFrameNumbers('player', {
-      start: 20,
-      end: 23,
-      zeroPad: 1,
-    }),
-    frameRate: 10,
-    repeat: -1,
-  });
-  anims.create({
-    key: 'player-down-walk',
-    frames: anims.generateFrameNumbers('player', {
-      start: 4,
-      end: 7,
+      start: 12,
+      end: 15,
       zeroPad: 1,
     }),
     frameRate: 10,
@@ -57,6 +47,36 @@ function playerActions(anims) {
       zeroPad: 1,
     }),
     frameRate: 10,
+    repeat: -1,
+  });
+  anims.create({
+    key: 'player-up-walk-grass',
+    frames: anims.generateFrameNumbers('player', {
+      start: 20,
+      end: 23,
+      zeroPad: 1,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
+  anims.create({
+    key: 'idle-player',
+    frames: anims.generateFrameNumbers('player', {
+      start: 24,
+      end: 31,
+      zeroPad: 1,
+    }),
+    frameRate: 3,
+    repeat: -1,
+  });
+  anims.create({
+    key: 'idle-player-grass',
+    frames: anims.generateFrameNumbers('player', {
+      start: 32,
+      end: 39,
+      zeroPad: 1,
+    }),
+    frameRate: 3,
     repeat: -1,
   });
 }

@@ -25,7 +25,7 @@ const playerControls = (keys, player, speed, onGrass) => {
     } else if (keys.down.isDown) {
       player.anims.play('player-down-walk-grass', true);
     } else {
-      player.anims.stop();
+      player.anims.play('idle-player-grass', true);
     }
   } else if (player.body.velocity.x !== 0) {
     player.anims.play('player-x-walk', true);
@@ -34,7 +34,7 @@ const playerControls = (keys, player, speed, onGrass) => {
   } else if (keys.down.isDown) {
     player.anims.play('player-down-walk', true);
   } else {
-    player.anims.stop();
+    player.anims.play('idle-player', true);
   }
 };
 

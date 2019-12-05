@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Player from '../player';
 import { detectDoor } from '../actions/doorDetection';
+import { dustMitesAnimation } from '../actions/dustmites';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
@@ -19,6 +20,18 @@ export default class HomeScene extends Phaser.Scene {
       16
     );
     this.load.tilemapTiledJSON('home-map', './assets/tilemaps/home.json');
+    this.load.spritesheet('mites', './assets/spritesheets/dustmites.png', {
+      frameWidth: 96,
+      frameHeight: 96,
+    });
+    this.load.spritesheet(
+      'mites--small',
+      './assets/spritesheets/dustmites--small.png',
+      {
+        frameWidth: 32,
+        frameHeight: 32,
+      }
+    );
   }
 
   create() {
@@ -26,8 +39,10 @@ export default class HomeScene extends Phaser.Scene {
     const homeMap = this.make.tilemap({ key: 'home-map' });
     const tileset = homeMap.addTilesetImage('home-tileset', 'home-tileset');
     const belowPlayer = homeMap.createStaticLayer('below player', tileset);
-
     this.homeWorld = homeMap.createStaticLayer('world', tileset);
+    const abovePlayer = homeMap.createStaticLayer('above player', tileset);
+
+    abovePlayer.setDepth(10);
 
     const spawnPoint = homeMap.findObject(
       'Objects',
@@ -57,6 +72,10 @@ export default class HomeScene extends Phaser.Scene {
       detectDoor(scene, 'WorldScene', 35, 23),
       scene
     );
+    dustMitesAnimation(this.anims);
+    this.add.sprite(115, 130, 'mites').play('hover');
+    this.add.sprite(50, 65, 'mites--small').play('hover--small');
+    this.add.sprite(110, 10, 'mites--small').play('hover--small');
   }
 
   update(time, delta) {

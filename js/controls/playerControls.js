@@ -1,46 +1,43 @@
-const playerControls = (cursors, player, controls, speed, delta, isOnGrass) => {
-  if (cursors.left.isDown) {
+const playerControls = (keys, player, speed) => {
+  if (keys.left.isDown) {
     player.body.setVelocityX(-speed);
-  } else if (cursors.right.isDown) {
+    player.setFlipX(false);
+  } else if (keys.right.isDown) {
     player.body.setVelocityX(speed);
-  }
-
-  if (cursors.up.isDown) {
+    player.setFlipX(true);
+  } else if (keys.up.isDown) {
     player.body.setVelocityY(-speed);
-  } else if (cursors.down.isDown) {
+  } else if (keys.down.isDown) {
     player.body.setVelocityY(speed);
+  } else {
+    player.body.setVelocityX(0);
+    player.body.setVelocityY(0);
   }
 
+  // Prevent player speeding up when walking on diagonal.
   player.body.velocity.normalize().scale(speed);
 
-  if (isOnGrass) {
-    if (cursors.right.isDown) {
-      player.anims.play('player-right-walk-grass', true);
-    } else if (cursors.left.isDown) {
-      player.anims.play('player-left-walk-grass', true);
-    } else if (cursors.up.isDown) {
-      player.anims.play('player-up-walk-grass', true);
-    } else if (cursors.down.isDown) {
-      player.anims.play('player-down-walk-grass', true);
-    } else if (cursors.space.isDown) {
-      console.log('active');
-    } else {
-      player.anims.stop();
-    }
-  } else if (cursors.right.isDown) {
-    player.anims.play('player-right-walk', true);
-  } else if (cursors.left.isDown) {
-    player.anims.play('player-left-walk', true);
-  } else if (cursors.up.isDown) {
+  // if (isOnGrass) {
+  if (player.body.velocity.x !== 0) {
+    //   player.anims.play('player-right-walk-grass', true);
+    // } else if (keys.left.isDown) {
+    //   player.anims.play('player-left-walk-grass', true);
+    // } else if (keys.up.isDown) {
+    //   player.anims.play('player-up-walk-grass', true);
+    // } else if (keys.down.isDown) {
+    //   player.anims.play('player-down-walk-grass', true);
+    // } else {
+    //   player.anims.stop();
+    // }
+    // } else if (cursors.right.isDown) {
+    player.anims.play('player-x-walk', true);
+  } else if (keys.up.isDown) {
     player.anims.play('player-up-walk', true);
-  } else if (cursors.down.isDown) {
+  } else if (keys.down.isDown) {
     player.anims.play('player-down-walk', true);
-  } else if (cursors.space.isDown) {
-    console.log('active');
   } else {
     player.anims.stop();
   }
-  controls.update(delta);
 };
 
 export { playerControls };

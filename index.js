@@ -5,9 +5,9 @@ import HomeScene from './js/scenes/homeScene';
 
 const config = {
   type: Phaser.AUTO,
-  width: 350,
-  height: 250,
-  zoom: 2.75,
+  width: 300,
+  height: 200,
+  zoom: 3,
   parent: 'game-container',
   pixelArt: true,
   scene: [WorldScene, TreeScene, HomeScene],

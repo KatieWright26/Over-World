@@ -38,7 +38,7 @@ export default class TreeScene extends Phaser.Scene {
 
     this.treeWorld.setTileLocationCallback(0, 0, 14, 14, detectGrass, scene);
     this.treeWorld.setTileLocationCallback(
-      6,
+      7,
       14,
       1,
       1,

@@ -1,17 +1,13 @@
 import Phaser from 'phaser';
-import playerActions from '../actions/playerActions';
-import { playerControls } from '../controls/playerControls';
-import { waveAnimation } from '../actions/waveAnimation';
+// import { waveAnimation } from '../actions/waveAnimation';
 import { detectDoor } from '../actions/doorDetection';
+import Player from '../player';
 
-let player;
-let cursors;
-let controls;
-let isOnGrass = false;
+// let isOnGrass = false;
 
-function detectGrass(_, tile) {
-  isOnGrass = tile.properties.grass;
-}
+// function detectGrass(_, tile) {
+//   isOnGrass = tile.properties.grass;
+// }
 
 export default class WorldScene extends Phaser.Scene {
   constructor() {
@@ -33,50 +29,26 @@ export default class WorldScene extends Phaser.Scene {
 
   create() {
     const scene = this;
-    const { anims } = this;
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('world-tileset', 'tiles');
     map.createStaticLayer('below player', tileset);
-    const world = map.createStaticLayer('world', tileset);
+    this.ground = map.createStaticLayer('world', tileset);
     map.createStaticLayer('buildings', tileset);
-    // const aboveLayer = map.createStaticLayer("above player", tileset);
-    world.setCollisionByProperty({ collides: true });
-
-    // aboveLayer.setDepth(10);
 
     const spawnPoint = map.findObject(
       'Objects',
       obj => obj.name === 'Spawn Point'
     );
+    this.player = new Player(scene, spawnPoint.x, spawnPoint.y);
 
-    player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'player');
+    this.ground.setCollisionByProperty({ collides: true });
+    this.physics.world.addCollider(this.player.sprite, this.ground);
+    this.cameras.main.startFollow(this.player.sprite);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    this.physics.add.collider(player, world);
+    // world.setTileLocationCallback(9, 14, 43, 32, detectGrass, scene);
 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // world.renderDebug(debugGraphics, {
-    //   tileColor: null,
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255),
-    // });
-
-    const camera = this.cameras.main;
-    camera.startFollow(player);
-    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-
-    cursors = this.input.keyboard.createCursorKeys();
-    controls = new Phaser.Cameras.Controls.FixedKeyControl({
-      camera,
-      left: cursors.left,
-      right: cursors.right,
-      up: cursors.up,
-      down: cursors.down,
-      speed: 0.5,
-    });
-
-    world.setTileLocationCallback(9, 14, 43, 32, detectGrass, scene);
-
-    world.setTileLocationCallback(
+    this.ground.setTileLocationCallback(
       27,
       21,
       1,
@@ -84,15 +56,11 @@ export default class WorldScene extends Phaser.Scene {
       detectDoor(scene, 'TreeScene'),
       scene
     );
-
-    playerActions(anims);
-    waveAnimation(anims);
-    this.add.sprite(300, 300, 'worm').play('wave');
+    // waveAnimation(anims);
+    // this.add.sprite(300, 300, 'worm').play('wave');
   }
 
   update(time, delta) {
-    const speed = 175;
-    player.body.setVelocity(0);
-    playerControls(cursors, player, controls, speed, delta, isOnGrass);
+    this.player.update();
   }
 }

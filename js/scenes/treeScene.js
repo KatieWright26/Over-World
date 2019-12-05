@@ -42,7 +42,7 @@ export default class TreeScene extends Phaser.Scene {
       14,
       1,
       1,
-      detectDoor(scene, 'WorldScene'),
+      detectDoor(scene, 'WorldScene', 26, 23),
       scene
     );
   }

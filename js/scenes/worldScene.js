@@ -12,6 +12,11 @@ export default class WorldScene extends Phaser.Scene {
     super('WorldScene');
   }
 
+  init(data) {
+    this.xTile = data.xTile;
+    this.yTile = data.yTile;
+  }
+
   preload() {
     this.load.image('tiles', './assets/tilesets/world-tileset.png', 16, 16);
     this.load.tilemapTiledJSON('map', './assets/tilemaps/map.json');
@@ -19,10 +24,10 @@ export default class WorldScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 32,
     });
-    this.load.spritesheet('worm', './assets/spritesheets/testsprite.png', {
-      frameWidth: 16,
-      frameHeight: 16,
-    });
+    // this.load.spritesheet('worm', './assets/spritesheets/testsprite.png', {
+    //   frameWidth: 16,
+    //   frameHeight: 16,
+    // });
   }
 
   create() {
@@ -37,7 +42,11 @@ export default class WorldScene extends Phaser.Scene {
       'Objects',
       obj => obj.name === 'Spawn Point'
     );
-    this.player = new Player(scene, spawnPoint.x, spawnPoint.y);
+
+    const x = this.xTile ? this.xTile * 16.5 : spawnPoint.x;
+    const y = this.yTile ? this.yTile * 16 : spawnPoint.y;
+
+    this.player = new Player(scene, x, y);
 
     this.ground.setCollisionByProperty({ collides: true });
     this.physics.world.addCollider(this.player.sprite, this.ground);
@@ -53,6 +62,15 @@ export default class WorldScene extends Phaser.Scene {
       1,
       1,
       detectDoor(scene, 'TreeScene'),
+      scene
+    );
+
+    this.ground.setTileLocationCallback(
+      35,
+      21,
+      1,
+      1,
+      detectDoor(scene, 'HomeScene'),
       scene
     );
     // waveAnimation(anims);

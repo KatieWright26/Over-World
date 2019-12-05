@@ -13,34 +13,32 @@ const playerControls = (cursors, player, controls, speed, delta, isOnGrass) => {
 
   player.body.velocity.normalize().scale(speed);
 
-  if(isOnGrass) {
+  if (isOnGrass) {
     if (cursors.right.isDown) {
-      player.anims.play("player-right-walk-grass", true);
+      player.anims.play('player-right-walk-grass', true);
     } else if (cursors.left.isDown) {
-      player.anims.play("player-left-walk-grass", true);
+      player.anims.play('player-left-walk-grass', true);
     } else if (cursors.up.isDown) {
-      player.anims.play("player-up-walk-grass", true);
+      player.anims.play('player-up-walk-grass', true);
     } else if (cursors.down.isDown) {
-      player.anims.play("player-down-walk-grass", true);
+      player.anims.play('player-down-walk-grass', true);
     } else if (cursors.space.isDown) {
-      console.log("active");
+      console.log('active');
     } else {
       player.anims.stop();
     }
+  } else if (cursors.right.isDown) {
+    player.anims.play('player-right-walk', true);
+  } else if (cursors.left.isDown) {
+    player.anims.play('player-left-walk', true);
+  } else if (cursors.up.isDown) {
+    player.anims.play('player-up-walk', true);
+  } else if (cursors.down.isDown) {
+    player.anims.play('player-down-walk', true);
+  } else if (cursors.space.isDown) {
+    console.log('active');
   } else {
-    if (cursors.right.isDown) {
-      player.anims.play("player-right-walk", true);
-    } else if (cursors.left.isDown) {
-      player.anims.play("player-left-walk", true);
-    } else if (cursors.up.isDown) {
-      player.anims.play("player-up-walk", true);
-    } else if (cursors.down.isDown) {
-      player.anims.play("player-down-walk", true);
-    } else if (cursors.space.isDown) {
-      console.log('active')
-    } else {
-      player.anims.stop();
-    }
+    player.anims.stop();
   }
   controls.update(delta);
 };

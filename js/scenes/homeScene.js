@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import Player from '../player';
 import { detectDoor } from '../actions/doorDetection';
-import { dustMitesAnimation } from '../actions/dustmites';
+import { dustMitesAnimation } from '../animations/dustmites';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);

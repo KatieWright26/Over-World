@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-// import { waveAnimation } from '../actions/waveAnimation';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
 
@@ -24,10 +23,6 @@ export default class WorldScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 32,
     });
-    // this.load.spritesheet('worm', './assets/spritesheets/testsprite.png', {
-    //   frameWidth: 16,
-    //   frameHeight: 16,
-    // });
   }
 
   create() {
@@ -73,8 +68,6 @@ export default class WorldScene extends Phaser.Scene {
       detectDoor(scene, 'HomeScene'),
       scene
     );
-    // waveAnimation(anims);
-    // this.add.sprite(300, 300, 'worm').play('wave');
   }
 
   update(time, delta) {

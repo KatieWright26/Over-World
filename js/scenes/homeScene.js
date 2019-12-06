@@ -75,7 +75,7 @@ export default class HomeScene extends Phaser.Scene {
     dustMitesAnimation(this.anims);
     this.add.sprite(115, 130, 'mites').play('hover');
     this.add.sprite(50, 65, 'mites--small').play('hover--small');
-    this.add.sprite(110, 10, 'mites--small').play('hover--small');
+    this.add.sprite(90, 5, 'mites--small').play('hover--small');
   }
 
   update(time, delta) {

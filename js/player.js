@@ -12,13 +12,14 @@ export default class Player {
       .setDrag(1000, 0)
       .setMaxVelocity(300, 400);
 
-    const { LEFT, RIGHT, UP, DOWN } = Phaser.Input.Keyboard.KeyCodes;
+    const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
 
     this.keys = scene.input.keyboard.addKeys({
       left: LEFT,
       right: RIGHT,
       up: UP,
       down: DOWN,
+      action: SPACE,
     });
 
     this.grass = false;

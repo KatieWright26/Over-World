@@ -68,9 +68,15 @@ export default class WorldScene extends Phaser.Scene {
       detectDoor(scene, 'HomeScene'),
       scene
     );
+
+    // this.input.keyboard.on('keydown-SPACE', testFunction, scene);
   }
 
   update(time, delta) {
     this.player.update();
   }
 }
+
+// function testFunction(k, scene) {
+//   console.log(k, scene);
+// }

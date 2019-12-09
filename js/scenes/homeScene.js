@@ -40,6 +40,7 @@ export default class HomeScene extends Phaser.Scene {
     const tileset = homeMap.addTilesetImage('home-tileset', 'home-tileset');
     const belowPlayer = homeMap.createStaticLayer('below player', tileset);
     this.homeWorld = homeMap.createStaticLayer('world', tileset);
+    homeMap.createStaticLayer('furniture', tileset);
     const abovePlayer = homeMap.createStaticLayer('above player', tileset);
 
     abovePlayer.setDepth(10);
@@ -73,7 +74,7 @@ export default class HomeScene extends Phaser.Scene {
       scene
     );
     dustMitesAnimation(this.anims);
-    this.add.sprite(115, 130, 'mites').play('hover');
+    this.add.sprite(130, 90, 'mites').play('hover');
     this.add.sprite(50, 65, 'mites--small').play('hover--small');
     this.add.sprite(90, 5, 'mites--small').play('hover--small');
   }

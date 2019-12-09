@@ -1,11 +1,14 @@
-import Phaser from 'phaser';
+import Phaser, { getTileAt } from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
+import { checkForDescriptiveTiles } from "../actions/tileDetection";
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
 }
 
+let map;
+const TILE_SQUARE = 16;
 export default class WorldScene extends Phaser.Scene {
   constructor() {
     super('WorldScene');
@@ -27,7 +30,7 @@ export default class WorldScene extends Phaser.Scene {
 
   create() {
     const scene = this;
-    const map = this.make.tilemap({ key: 'map' });
+    map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('world-tileset', 'tiles');
     map.createStaticLayer('below player', tileset);
     this.ground = map.createStaticLayer('world', tileset);
@@ -39,7 +42,7 @@ export default class WorldScene extends Phaser.Scene {
     );
 
     const x = this.xTile ? this.xTile * 16.5 : spawnPoint.x;
-    const y = this.yTile ? this.yTile * 16 : spawnPoint.y;
+    const y = this.yTile ? this.yTile * TILE_SQUARE : spawnPoint.y;
 
     this.player = new Player(scene, x, y);
 
@@ -69,14 +72,14 @@ export default class WorldScene extends Phaser.Scene {
       scene
     );
 
-    // this.input.keyboard.on('keydown-SPACE', testFunction, scene);
+    this.input.keyboard.on(
+      "keydown-SPACE",
+      checkForDescriptiveTiles(this.ground, this.player.sprite, TILE_SQUARE, map, scene),
+      scene
+    );
   }
 
   update(time, delta) {
     this.player.update();
   }
 }
-
-// function testFunction(k, scene) {
-//   console.log(k, scene);
-// }

@@ -16,7 +16,6 @@ const playerControls = (keys, player, speed, onGrass) => {
 
   // Prevent player speeding up when walking on diagonal.
   player.body.velocity.normalize().scale(speed);
-
   if (onGrass) {
     if (player.body.velocity.x !== 0) {
       player.anims.play('player-x-walk-grass', true);
@@ -25,7 +24,19 @@ const playerControls = (keys, player, speed, onGrass) => {
     } else if (keys.down.isDown) {
       player.anims.play('player-down-walk-grass', true);
     } else {
-      player.anims.play('idle-player-grass', true);
+      // if (previousFrame === 'player-down-walk-grass') {
+      //   player.anims.play("idle-player-grass", true);
+      // } else {
+      //   player.anims.stop();
+      // }
+      player.anims.stop();
+      // let lastAnim = player.anims.currentAnim.key;
+      // console.log(lastAnim)
+      // if (lastAnim === "player-down-walk-grass" || "idle-player-grass") {
+      //   player.anims.play("idle-player-grass", true);
+      // } else {
+      //   player.anims.play("player-x-walk-grass", true);
+      // }
     }
   } else if (player.body.velocity.x !== 0) {
     player.anims.play('player-x-walk', true);

@@ -17,3 +17,4 @@ npm start
 npm run deploy
 ```
 
+![screen recording from over-world](https://github.com/KatieWright26/Over-World/blob/master/assets/over-world-gif.gif)

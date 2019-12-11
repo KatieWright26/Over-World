@@ -1,7 +1,7 @@
 import Phaser, { getTileAt } from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
-import { checkForDescriptiveTiles } from "../actions/tileDetection";
+import { checkForDescriptiveTiles } from '../actions/tileDetection';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
@@ -73,8 +73,14 @@ export default class WorldScene extends Phaser.Scene {
     );
 
     this.input.keyboard.on(
-      "keydown-SPACE",
-      checkForDescriptiveTiles(this.ground, this.player.sprite, TILE_SQUARE, map, scene),
+      'keydown-SPACE',
+      checkForDescriptiveTiles(
+        this.ground,
+        this.player.sprite,
+        TILE_SQUARE,
+        map,
+        scene
+      ),
       scene
     );
   }

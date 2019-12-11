@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { checkForDescriptiveTiles } from '../actions/tileDetection';
 import Player from '../player';
 import { detectDoor } from '../actions/doorDetection';
 import { dustMitesAnimation } from '../animations/dustmites';
@@ -71,6 +72,18 @@ export default class HomeScene extends Phaser.Scene {
       1,
       1,
       detectDoor(scene, 'WorldScene', 35, 23),
+      scene
+    );
+
+    this.input.keyboard.on(
+      'keydown-SPACE',
+      checkForDescriptiveTiles(
+        this.homeWorld,
+        this.player.sprite,
+        16,
+        homeMap,
+        scene
+      ),
       scene
     );
     dustMitesAnimation(this.anims);

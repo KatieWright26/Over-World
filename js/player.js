@@ -20,7 +20,7 @@ export default class Player {
       up: UP,
       down: DOWN,
       action: SPACE,
-      cancel: X
+      cancel: X,
     });
 
     this.grass = false;

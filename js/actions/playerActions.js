@@ -71,8 +71,8 @@ function playerActions(anims) {
   anims.create({
     key: 'idle-up-player',
     frames: anims.generateFrameNumbers('player', {
-      start: 8,
-      end: 8,
+      start: 48,
+      end: 51,
       zeroPad: 1,
     }),
     frameRate: 3,
@@ -81,8 +81,8 @@ function playerActions(anims) {
   anims.create({
     key: 'idle-up-player-grass',
     frames: anims.generateFrameNumbers('player', {
-      start: 20,
-      end: 20,
+      start: 52,
+      end: 55,
       zeroPad: 1,
     }),
     frameRate: 3,
@@ -121,8 +121,8 @@ function playerActions(anims) {
   anims.create({
     key: 'idle-x-player',
     frames: anims.generateFrameNumbers('player', {
-      start: 0,
-      end: 0,
+      start: 40,
+      end: 43,
       zeroPad: 1,
     }),
     frameRate: 3,
@@ -131,8 +131,8 @@ function playerActions(anims) {
   anims.create({
     key: 'idle-x-player-grass',
     frames: anims.generateFrameNumbers('player', {
-      start: 12,
-      end: 12,
+      start: 44,
+      end: 47,
       zeroPad: 1,
     }),
     frameRate: 3,

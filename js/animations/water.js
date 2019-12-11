@@ -9,6 +9,17 @@ function waterTap(anims) {
     frameRate: 6,
     repeat: -1,
   });
+
+  anims.create({
+    key: 'cliff',
+    frames: anims.generateFrameNumbers('water-cliff-angle', {
+      start: 0,
+      end: 1,
+      zeroPad: 1,
+    }),
+    frameRate: 6,
+    repeat: -1,
+  });
 }
 
 export { waterTap };

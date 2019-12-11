@@ -2,7 +2,7 @@ import Phaser, { getTileAt } from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
 import { checkForDescriptiveTiles } from '../actions/tileDetection';
-import { waterTap } from '../animations/watertap';
+import { waterTap } from '../animations/water';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
@@ -31,6 +31,14 @@ export default class WorldScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+    this.load.spritesheet(
+      'water-cliff-angle',
+      './assets/spritesheets/cliff.png',
+      {
+        frameWidth: 32,
+        frameHeight: 16,
+      }
+    );
   }
 
   create() {
@@ -40,6 +48,9 @@ export default class WorldScene extends Phaser.Scene {
     map.createStaticLayer('below player', tileset);
     this.ground = map.createStaticLayer('world', tileset);
     map.createStaticLayer('buildings', tileset);
+    const abovePlayer = map.createStaticLayer('above player', tileset);
+
+    abovePlayer.setDepth(10);
 
     const spawnPoint = map.findObject(
       'Objects',
@@ -91,6 +102,7 @@ export default class WorldScene extends Phaser.Scene {
 
     waterTap(this.anims);
     this.add.sprite(352, 432, 'water').play('pour');
+    this.add.sprite(235, 690, 'water-cliff-angle').play('cliff');
   }
 
   update(time, delta) {

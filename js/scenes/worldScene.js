@@ -2,6 +2,7 @@ import Phaser, { getTileAt } from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
 import { checkForDescriptiveTiles } from '../actions/tileDetection';
+import { waterTap } from '../animations/watertap';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
@@ -24,6 +25,10 @@ export default class WorldScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', './assets/tilemaps/map.json');
     this.load.spritesheet('player', './assets/spritesheets/player.png', {
       frameWidth: 16,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('water', './assets/spritesheets/watertank.png', {
+      frameWidth: 32,
       frameHeight: 32,
     });
   }
@@ -83,6 +88,9 @@ export default class WorldScene extends Phaser.Scene {
       ),
       scene
     );
+
+    waterTap(this.anims);
+    this.add.sprite(352, 432, 'water').play('pour');
   }
 
   update(time, delta) {

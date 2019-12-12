@@ -51,6 +51,9 @@ export default class WorldScene extends Phaser.Scene {
     const tileset = map.addTilesetImage('world-tileset', 'tiles');
     map.createStaticLayer('below player', tileset);
     this.ground = map.createStaticLayer('world', tileset);
+    waterTap(this.anims);
+    this.add.sprite(339, 596, 'river-tide').play('tide');
+
     map.createStaticLayer('buildings', tileset);
     const abovePlayer = map.createStaticLayer('above player', tileset);
 
@@ -104,10 +107,8 @@ export default class WorldScene extends Phaser.Scene {
       scene
     );
 
-    waterTap(this.anims);
     this.add.sprite(352, 432, 'water').play('pour');
     this.add.sprite(235, 690, 'water-cliff-angle').play('cliff');
-    this.add.sprite(339, 596, 'river-tide').play('tide');
   }
 
   update(time, delta) {

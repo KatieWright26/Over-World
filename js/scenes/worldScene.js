@@ -39,6 +39,10 @@ export default class WorldScene extends Phaser.Scene {
         frameHeight: 16,
       }
     );
+    this.load.spritesheet('river-tide', './assets/spritesheets/tide.png', {
+      frameWidth: 254,
+      frameHeight: 360,
+    });
   }
 
   create() {
@@ -103,6 +107,7 @@ export default class WorldScene extends Phaser.Scene {
     waterTap(this.anims);
     this.add.sprite(352, 432, 'water').play('pour');
     this.add.sprite(235, 690, 'water-cliff-angle').play('cliff');
+    this.add.sprite(339, 596, 'river-tide').play('tide');
   }
 
   update(time, delta) {

@@ -20,6 +20,17 @@ function waterTap(anims) {
     frameRate: 6,
     repeat: -1,
   });
+
+  anims.create({
+    key: 'tide',
+    frames: anims.generateFrameNumbers('river-tide', {
+      start: 0,
+      end: 1,
+      zeroPad: 1,
+    }),
+    frameRate: 1,
+    repeat: -1,
+  });
 }
 
 export { waterTap };

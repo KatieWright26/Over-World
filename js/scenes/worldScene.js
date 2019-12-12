@@ -107,7 +107,7 @@ export default class WorldScene extends Phaser.Scene {
       scene
     );
 
-    this.add.sprite(352, 432, 'water').play('pour');
+    this.add.sprite(352, 437, 'water').play('pour');
     this.add.sprite(235, 690, 'water-cliff-angle').play('cliff');
   }
 

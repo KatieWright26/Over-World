@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
-import Inventory from '../inventory';
+import Inventory, { collectItem } from '../inventory';
 import { checkForDescriptiveTiles } from '../actions/tileDetection';
 import { waterTap } from '../animations/water';
+import { showDebug } from '../showDebug';
 
 function detectGrass(_, tile) {
   this.player.isOnGrass(tile.properties.grass);
@@ -24,6 +25,7 @@ export default class WorldScene extends Phaser.Scene {
   preload() {
     this.load.image('tiles', './assets/tilesets/world-tileset.png', 16, 16);
     this.load.tilemapTiledJSON('map', './assets/tilemaps/map.json');
+    this.load.image('ball', './assets/spritesheets/ball.png', 16, 16);
     this.load.spritesheet('player', './assets/spritesheets/player.png', {
       frameWidth: 16,
       frameHeight: 32,
@@ -47,19 +49,36 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   create() {
-    const scene = this;
+    // RENDER MAP AND LAYERS
     map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('world-tileset', 'tiles');
     map.createStaticLayer('below player', tileset);
     this.ground = map.createStaticLayer('world', tileset);
-    waterTap(this.anims);
-    this.add.sprite(339, 616, 'river-tide').play('tide');
-
     map.createStaticLayer('buildings', tileset);
     const abovePlayer = map.createStaticLayer('above player', tileset);
-
     abovePlayer.setDepth(10);
 
+    // CREATE INVENTORY
+    const scene = this;
+    this.inventory = new Inventory(scene);
+    const balls = this.physics.add.group({
+      key: 'ball',
+      repeat: 3,
+      setXY: { x: 500, y: 700, stepX: 16 },
+    });
+
+    balls.children.iterate(function(child) {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+
+    balls.enableBody = true;
+    this.physics.add.collider(balls, this.ground);
+    // START ANIMATIONS
+    waterTap(this.anims);
+    this.add.sprite(339, 616, 'river-tide').play('tide');
+    this.add.sprite(352, 437, 'water').play('pour');
+
+    // CREATE PLAYER
     const spawnPoint = map.findObject(
       'Objects',
       obj => obj.name === 'Spawn Point'
@@ -69,13 +88,23 @@ export default class WorldScene extends Phaser.Scene {
     const y = this.yTile ? this.yTile * TILE_SQUARE : spawnPoint.y;
 
     this.player = new Player(scene, x, y);
-    this.inventory = new Inventory(scene);
+
+    // ADD PHYSICS AND COLLIDERS
     this.ground.setCollisionByProperty({ collides: true });
     this.physics.world.addCollider(this.player.sprite, this.ground);
+    this.physics.add.overlap(
+      this.player.sprite,
+      balls,
+      collectItem,
+      null,
+      scene
+    );
 
+    // ADD CAMERA
     this.cameras.main.startFollow(this.player.sprite);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+    // ADD DYNAMIC TILE DETECTION
     this.ground.setTileLocationCallback(9, 14, 43, 32, detectGrass, scene);
 
     this.ground.setTileLocationCallback(
@@ -108,10 +137,10 @@ export default class WorldScene extends Phaser.Scene {
       scene
     );
 
-    this.add.sprite(352, 437, 'water').play('pour');
+    showDebug(this.ground, scene);
   }
 
-  update(time, delta) {
+  update(time, delta, scene) {
     this.player.update();
     this.inventory.update();
   }

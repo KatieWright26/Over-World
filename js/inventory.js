@@ -25,8 +25,6 @@ export default class Inventory {
     }
   }
 
-  addInventory() {}
-
   findNextAvailableSpot() {}
 
   openInventory() {
@@ -47,3 +45,7 @@ export default class Inventory {
     showInventory.destroy();
   }
 }
+
+export const collectItem = (player, ball) => {
+  ball.disableBody(true, true);
+};

@@ -26,10 +26,8 @@ const checkForDescriptiveTiles = (
   } else {
     playerX = Math.round((player.x - tileWidth) / tileWidth);
   }
-  console.log(`x: ${playerX}, y: ${playerY}`);
 
   const tile = map.getTilesWithin(playerX, playerY, 1, 1, [], layer);
-  console.log(tile[0].properties);
 
   if (tile[0].properties.description) {
     scene.input.keyboard.on('keydown-X', closeTextbox, scene);

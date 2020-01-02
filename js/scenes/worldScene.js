@@ -1,6 +1,7 @@
-import Phaser, { getTileAt } from 'phaser';
+import Phaser from 'phaser';
 import { detectDoor } from '../actions/doorDetection';
 import Player from '../player';
+import Inventory from '../inventory';
 import { checkForDescriptiveTiles } from '../actions/tileDetection';
 import { waterTap } from '../animations/water';
 
@@ -40,8 +41,8 @@ export default class WorldScene extends Phaser.Scene {
       }
     );
     this.load.spritesheet('river-tide', './assets/spritesheets/tide.png', {
-      frameWidth: 254,
-      frameHeight: 360,
+      frameWidth: 256,
+      frameHeight: 400,
     });
   }
 
@@ -52,7 +53,7 @@ export default class WorldScene extends Phaser.Scene {
     map.createStaticLayer('below player', tileset);
     this.ground = map.createStaticLayer('world', tileset);
     waterTap(this.anims);
-    this.add.sprite(339, 596, 'river-tide').play('tide');
+    this.add.sprite(339, 616, 'river-tide').play('tide');
 
     map.createStaticLayer('buildings', tileset);
     const abovePlayer = map.createStaticLayer('above player', tileset);
@@ -68,7 +69,7 @@ export default class WorldScene extends Phaser.Scene {
     const y = this.yTile ? this.yTile * TILE_SQUARE : spawnPoint.y;
 
     this.player = new Player(scene, x, y);
-
+    this.inventory = new Inventory(scene);
     this.ground.setCollisionByProperty({ collides: true });
     this.physics.world.addCollider(this.player.sprite, this.ground);
 
@@ -108,10 +109,10 @@ export default class WorldScene extends Phaser.Scene {
     );
 
     this.add.sprite(352, 437, 'water').play('pour');
-    this.add.sprite(235, 690, 'water-cliff-angle').play('cliff');
   }
 
   update(time, delta) {
     this.player.update();
+    this.inventory.update();
   }
 }

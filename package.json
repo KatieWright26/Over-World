@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/KatieWright26/Over-World#readme",
   "dependencies": {
-    "phaser": "^3.21.0"
+    "phaser": "^3.55.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
